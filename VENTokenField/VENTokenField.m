@@ -201,7 +201,12 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 {
     [self.collapsedLabel removeFromSuperview];
     BOOL inputFieldShouldBecomeFirstResponder = self.inputTextField.isFirstResponder;
-    [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    for (UIView *view in self.scrollView.subviews) {
+        if ([view isKindOfClass:[VENBackspaceTextField class]] == false) {
+            [view removeFromSuperview];
+        }
+    }
+    
     self.scrollView.hidden = NO;
     [self removeGestureRecognizer:self.tapGestureRecognizer];
 
